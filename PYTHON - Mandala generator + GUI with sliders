@@ -1,0 +1,61 @@
+import tkinter as tk
+import turtle
+import math
+
+# Function to draw a single petal
+def draw_petal(petal_length, petal_angle):
+    turtle.forward(petal_length)
+    turtle.left(180 - petal_angle)
+    turtle.forward(petal_length)
+    turtle.left(180 - petal_angle)
+    turtle.forward(petal_length)
+    turtle.left(180)
+
+# Function to draw the mandala
+def draw_mandala(num_petals, petal_length, petal_angle):
+    turtle.speed(0)
+    for _ in range(num_petals):
+        draw_petal(petal_length, petal_angle)
+        turtle.left(360 / num_petals)
+
+# Function to update the mandala based on slider values
+def update_mandala():
+    turtle.clear()
+    num_petals = int(num_petals_slider.get())
+    petal_length = int(petal_length_slider.get())
+    petal_angle = int(petal_angle_slider.get())
+    draw_mandala(num_petals, petal_length, petal_angle)
+
+# GUI setup
+root = tk.Tk()
+root.title("Mandala Generator")
+
+# Sliders for settings
+num_petals_label = tk.Label(root, text="Number of Petals:")
+num_petals_label.pack()
+num_petals_slider = tk.Scale(root, from_=6, to=24, orient=tk.HORIZONTAL)
+num_petals_slider.pack()
+
+petal_length_label = tk.Label(root, text="Petal Length:")
+petal_length_label.pack()
+petal_length_slider = tk.Scale(root, from_=50, to=200, orient=tk.HORIZONTAL)
+petal_length_slider.pack()
+
+petal_angle_label = tk.Label(root, text="Petal Angle:")
+petal_angle_label.pack()
+petal_angle_slider = tk.Scale(root, from_=30, to=150, orient=tk.HORIZONTAL)
+petal_angle_slider.pack()
+
+# Button to update the mandala
+update_button = tk.Button(root, text="Update Mandala", command=update_mandala)
+update_button.pack()
+
+# Initialize the turtle window
+turtle_screen = turtle.Screen()
+turtle_screen.bgcolor("white")
+
+# Call the main loop
+root.mainloop()
+
+
+# CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
