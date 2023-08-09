@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mandala Generator</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="mandalaCanvas"></canvas>
+  <script>
+    const canvas = document.getElementById("mandalaCanvas");
+    const ctx = canvas.getContext("2d");
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+
+    // Set canvas dimensions
+    canvas.width = 400;
+    canvas.height = 400;
+
+    // Function to draw a sector
+    function drawSector(startAngle, endAngle, color) {
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.arc(centerX, centerY, canvas.width / 2, startAngle, endAngle);
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
+
+    // Generate random Mandala
+    function generateMandala() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const numSectors = Math.floor(Math.random() * 10) + 3; // Random number of sectors between 3 and 12
+      const angleStep = (Math.PI * 2) / numSectors;
+
+      for (let i = 0; i < numSectors; i++) {
+        const startAngle = i * angleStep;
+        const endAngle = (i + 1) * angleStep;
+        const sectorColor = `hsl(${Math.random() * 360}, 50%, 70%)`; // Random color
+        drawSector(startAngle, endAngle, sectorColor);
+      }
+    }
+
+    // Call the generator initially and on button click
+    generateMandala();
+    canvas.addEventListener("click", generateMandala);
+  </script>
+</body>
+</html>
+
+
+# CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
